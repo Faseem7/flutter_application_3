@@ -10,11 +10,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
+  
   List<CategoryModel> categories = [];
+
+   
 
   void _getCategories() {
     categories = CategoryModel.getCategories();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,8 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 30,
           ),
-          category_items()
+          category_items(),
+          Column()
         ],
       ),
     );
@@ -54,47 +60,46 @@ class _HomePageState extends State<HomePage> {
 
   SizedBox category_items() {
     return SizedBox(
-          height: 120,
-          child: ListView.separated(
-            itemCount: categories.length,
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.only(left: 20, right: 20),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                width: 100,
-                decoration: BoxDecoration(
-                    color: categories[index].boxColor.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(16)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(categories[index].iconPath),
-                      ),
-                    ),
-                    
-                    Text(categories[index].name,
-                    style: TextStyle(
+      height: 120,
+      child: ListView.separated(
+        itemCount: categories.length,
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.only(left: 20, right: 20),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            width: 100,
+            decoration: BoxDecoration(
+                color: categories[index].boxColor.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(16)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset(categories[index].iconPath),
+                  ),
+                ),
+                Text(
+                  categories[index].name,
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
-                      color: Colors.black
-                    ),)
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              width: 20,
+                      color: Colors.black),
+                )
+              ],
             ),
-          ),
-        );
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const SizedBox(
+          width: 20,
+        ),
+      ),
+    );
   }
 
   Container _searchField() {
